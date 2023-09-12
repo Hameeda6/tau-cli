@@ -77,3 +77,7 @@ func pluralAlias(command *cli.Command) {
 		command.Aliases = append(command.Aliases, command.Name+"s")
 	}
 }
+
+//something to be improved
+//1.pluralAlias function could be more generic to handle different command names.
+//2.unitTesting for the codes
