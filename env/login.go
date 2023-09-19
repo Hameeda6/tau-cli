@@ -7,7 +7,7 @@ import (
 	"github.com/taubyte/tau-cli/singletons/session"
 	"github.com/urfave/cli/v2"
 )
-
+//this func describes selected user's profile name.
 func SetSelectedUser(c *cli.Context, profileName string) error {
 	if justDisplayExport(c, constants.CurrentSelectedProfileNameEnvVarName, profileName) {
 		return nil
@@ -15,7 +15,7 @@ func SetSelectedUser(c *cli.Context, profileName string) error {
 
 	return session.Set().ProfileName(profileName)
 }
-
+//gets the selected user's profile name
 func GetSelectedUser() (string, error) {
 	profileName, isSet := LookupEnv(constants.CurrentSelectedProfileNameEnvVarName)
 	if isSet && len(profileName) > 0 {
@@ -37,17 +37,17 @@ func GetSelectedUser() (string, error) {
 	// Try to get default profile if env variable not set
 	for _profileName, profile := range config.Profiles().List(false) {
 		if profile.Default {
-			profileName = _profileName
-
-			break
+			return _profileName , nil
+			//profileName = _profileName
+			//break
 		}
 	}
 
-	if len(profileName) == 0 {
+	//if len(profileName) == 0 {
+	
 		return "", envI18n.ErrorUserNotFound
-	}
-
-	return profileName, nil
+	//}
+	//return profileName, nil
 }
 
 func profileFromProject() (name string, exist bool) {
@@ -63,3 +63,7 @@ func profileFromProject() (name string, exist bool) {
 
 	return project.DefaultProfile, true
 }
+
+//simplified GetSelectedUser() function to reduce nesting by returning early when the profile name is found.
+//added comments to functions.
+
